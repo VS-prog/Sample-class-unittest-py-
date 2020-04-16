@@ -1,0 +1,81 @@
+
+
+class Patient: # Class and object
+    def __init__(self, name, age, ethnicity, prexist):
+        self.name = name
+        self.age = age
+        self.ethnicity = ethnicity
+        self.prexist = prexist
+    def symptoms(self, fever, cough, breathing, days):
+        self.fever = fever
+        self.cough = cough
+        self.breathing = breathing
+        self.days = days
+    def Covid_patient(self):
+        if self.age >= 60 or self.ethnicity == 'y' or self.prexist == 'y':
+            if self.fever >= 100 and self.cough == 'dry' and self.breathing == 'difficulty' and self.days >= 3:
+                print(self.name + ": >>>>> You have Covid-19 candidate: Stay at home & avoid contracting!")
+            else: print(self.name + ": >>>>> High risk Covid-19 candidate: Stay at home & avoid contracting!")
+
+        else:
+            print(self.name + ": >>>>> You may be having Flu: Take meds & self-quarantine!")
+
+p1 = Patient("John",60, "y","y")
+p1.symptoms(100, 'dry', 'difficulty', 3)
+print(p1.Covid_patient())
+
+p2 = Patient("Kim",30, "n","n")
+p2.symptoms(100, 'wet', 'normal', 3)
+print(p2.Covid_patient())
+
+p3 = Patient("Carlos", 80, "n", 'y')
+p3.symptoms(100, 'dry', 'normal', 4)
+print(p3.Covid_patient())
+
+##### simple program #####
+
+print()
+print("Enter your information: ")
+print()
+preExisting = input(" 1. Enter 'y' if you have any/all OR 'n' for none: High B>P., Asthma, Diabetes: ")
+ethnicity = input(" 2. Enter 'y', if you are Afro American OR 'n': ")
+age = input(" 3. Renter 'y' if you are >= 60 tears OR 'n': ")
+symptoms = input(" 4. Enter 'y' if you have fever >= 99 F, breathlessnes, days >= 3 OR 'n': ")
+mild_symptoms = input(" 5. Enter 'y' if you have mild symptoms OR 'n': ")
+
+def Covid():
+    preExisting = 'y' or 'n'
+    if preExisting == 'y' and ethnicity == 'y' and age == 'y' and symptoms == 'y':
+        print()
+        print(" >>>> Emergency: 'You need to go to the COVID-19 hospital and get treated immediately!")
+    elif preExisting == 'n' and ethnicity == 'n' and age == 'y' and symptoms == 'y':
+        print()
+        print(" >>>> You need to get COVID-19 testing")
+    elif mild_symptoms == 'y':
+        print()
+        print(" >>>> You may be having Flu, take meds and self-quarantine")
+    else:
+        print()
+        print(" >>>> Stay home and stay healthy!")
+Covid()
+
+##### unit test #####
+
+import unittest
+class TestCovid(unittest.TestCase):
+    pName = str(input("Enter your name: "))
+
+    def test_pTemp(self):
+        pTemp = float(input("Enter your body temperature: "))
+        assert(pTemp >= 98.5), "Body tempeature should be >= 98.5"
+
+    def test_pAge(self):
+        pAge = int(input("Enter your age: "))
+        assert(pAge > 0), "Age should be > 0"
+
+    def test_pEthnicity(self):
+        pEthnicity = str(input("Enter 'y' if you are Afro American or 'n': "))
+        self.assertEqual('y'.upper(), 'Y')
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
